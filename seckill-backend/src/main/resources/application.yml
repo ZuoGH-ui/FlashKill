@@ -1,0 +1,58 @@
+server:
+  port: 8080
+  tomcat:
+    threads:
+      max: 500        # 最大线程数
+      min-spare: 50   # 最小空闲线程
+    accept-count: 1000  # 等待队列长度
+    max-connections: 10000  # 最大连接数
+
+spring:
+  application:
+    name: seckill-backend
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/seckill_db?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      timeout: 5000ms
+      lettuce:
+        pool:
+          max-active: 50    # 最大连接数
+          max-idle: 50
+          min-idle: 10
+          max-wait: 5000ms
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    template:
+      allowed-classes: com.flashkill.seckillbackend.mq.message
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+  global-config:
+    db-config:
+      id-type: auto
+
+jwt:
+  secret: flashkill-secret-key-2026-please-change-in-production
+  expire: 86400
+
+aliyun:
+  oss:
+    endpoint: https://oss-cn-beijing.aliyuncs.com
+    bucket-name: first-oss-for-zgh
+    region: cn-beijing
